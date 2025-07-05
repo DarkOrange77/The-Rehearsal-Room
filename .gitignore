@@ -1,0 +1,13 @@
+backgrounds/
+core/
+docs/
+scenes/
+tests/
+the-rehearsal-room/
+*.ps1
+*.log
+.vscode/
+__pycache__/
+*.pyc
+.env
+.DS_Store
