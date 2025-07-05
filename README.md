@@ -64,7 +64,6 @@ the-rehearsal-room/
 ## 🎷 Soundtrack & Audio
 
 Music generated using **[Suno.ai](https://suno.ai/)** for ambient tracks and emotional tension.
-Voice lines generated via free voice tools (optional, if you implement character speech).
 
 ---
 
