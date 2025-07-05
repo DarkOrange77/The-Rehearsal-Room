@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <div id="vn-title">The Rehearsal Room</div>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <audio id="bgm" src="assets/audio/BetweentheVeil.mp3" loop autoplay></audio>
+  <!-- Music Controls -->
+<div id="music-controls" style="position:absolute; top:18px; right:32px; z-index:1000;">
+  <button id="mute-bgm" style="padding:4px 12px; border-radius:6px; background:#222; color:#ffe066; border:none; cursor:pointer;">Mute Music</button>
+  <input type="range" id="bgm-volume" min="0" max="1" step="0.01" value="1" style="vertical-align:middle;">
+</div>
+  <script>
+window.addEventListener('DOMContentLoaded', function() {
+  const bgm = document.getElementById('bgm');
+  function startMusic() {
+    bgm.play().catch(()=>{});
+    window.removeEventListener('click', startMusic);
+    window.removeEventListener('keydown', startMusic);
+  }
+  window.addEventListener('click', startMusic);
+  window.addEventListener('keydown', startMusic);
+});
+</script>
+  <div id="meta-bg"></div>
+  <div id="vn-background"></div>
+  <div id="vn-character"></div>
+  <div id="vn-dialogue-box">
+    <div id="vn-name"></div>
+    <div id="vn-dialogue"></div>
+    <div id="vn-choices"></div>
+  </div>
+  <script src="scripts/scenes.js"></script>
+  <script src="scripts/main.js"></script>
+  <script>
+document.addEventListener('mousemove', function(e) {
+  const x = (e.clientX / window.innerWidth) * 100;
+  const y = (e.clientY / window.innerHeight) * 100;
+  document.getElementById('meta-bg').style.setProperty('--spot-x', x + '%');
+  document.getElementById('meta-bg').style.setProperty('--spot-y', y + '%');
+});
+</script>
+  <!-- ...existing code... -->
+  <div id="ending-overlay" style="display:none;">
+    <div class="ending-content">
+      <h1 id="ending-title"></h1>
+      <div id="ending-text"></div>
+      <button id="ending-restart">Restart</button>
+    </div>
+  </div>
+</body>
+</html>

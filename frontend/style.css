@@ -1,0 +1,406 @@
+/* === Base Reset === */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* === Background Elements === */
+#vn-background {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+#vn-bg-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(10,10,30,0.45) 60%, rgba(10,10,30,0.7) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+#vn-character {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 480px;
+  background: url('assets/images/characters/eleanor_neutral.png') center/contain no-repeat;
+  z-index: 3;
+}
+
+/* === Dialogue Box === */
+#vn-dialogue-box {
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+  background: linear-gradient(180deg, rgba(30,30,80,0.85) 80%, rgba(30,30,80,0.95) 100%);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px) brightness(0.95);
+  border-radius: 24px 24px 0 0;
+  padding: 32px 60px;
+  z-index: 4;
+  min-height: 120px;
+  max-height: 60vh;
+  box-shadow: inset 0 0 32px rgba(0,0,0,0.4), 0 -8px 48px 0 rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: background 0.4s;
+}
+
+/* === Speaker Name === */
+#vn-name {
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 1.1em;
+}
+
+/* === Dialogue Text === */
+#vn-dialogue {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.4em;
+  line-height: 2;
+  letter-spacing: 0.03em;
+  color: #f5e6c8;
+  white-space: pre-line;
+  text-shadow: 0 1px 6px #000a, 0 0 2px #ffe06633;
+  max-height: 40vh;
+  overflow-y: auto;
+  transition: max-height 0.2s;
+  padding-top: 12px;
+  padding-right: 12px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === Scrollbar Gothic Refinement === */
+#vn-dialogue::-webkit-scrollbar {
+  width: 10px;
+}
+#vn-dialogue::-webkit-scrollbar-track {
+  background: linear-gradient(to bottom, #1b1510, #2a221a);
+  border-left: 1px solid #2c1f15;
+  border-radius: 10px;
+}
+#vn-dialogue::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #ffe066, #6b4c2a);
+  border-radius: 10px;
+  border: 2px solid #1e1812;
+  box-shadow: inset 0 0 4px rgba(255, 224, 102, 0.2);
+  animation: flicker-gold 4s infinite;
+}
+#vn-dialogue::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #fff7c0, #a67c4f);
+}
+#vn-dialogue {
+  scrollbar-width: thin;
+  scrollbar-color: #ffe066 #1e1812;
+}
+
+/* === Flicker Animation for Scrollbar === */
+@keyframes flicker-gold {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+  75% { opacity: 0.95; }
+}
+
+/* === Choices === */
+#vn-choices button {
+  margin: 10px 12px 0 0;
+  padding: 10px 28px;
+  border-radius: 24px;
+  border: 1.5px solid rgba(255, 224, 102, 0.18);
+  background: rgba(40, 32, 16, 0.38);
+  color: #ffe066;
+  font-weight: bold;
+  font-size: 1.08em;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+  backdrop-filter: blur(8px) brightness(1.08);
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+#vn-choices button:hover {
+  background: rgba(255, 224, 102, 0.18);
+  color: #fffbe6;
+  border: 1.5px solid #ffe066;
+}
+
+/* === Emphasis Styling === */
+#vn-dialogue b {
+  color: #ffe066;
+  font-weight: bold;
+}
+#vn-dialogue em, #vn-dialogue i {
+  color: #e0e0ff;
+  font-style: italic;
+}
+
+/* === Title Styling === */
+#vn-title {
+  position: fixed;
+  top: 32px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 3.2em;
+  color: #f5e6c8;
+  text-shadow: 
+    0 2px 16px rgba(23, 5, 187, 0.5), /* soft ethereal glow */
+    0 0 8px #ffe06666,               /* candle warmth */
+    0 1px 0 #000a;                   /* subtle bottom shadow */
+  letter-spacing: 2px;
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
+  border-bottom: 2px solid #ffe06633;
+  width: 100%;
+  padding-bottom: 8px;
+  animation: titleFadeIn 2.5s ease-out;
+}
+
+
+/* === Responsive === */
+@media (max-width: 700px) {
+  #vn-dialogue-box {
+    padding: 18px 8px;
+  }
+  #vn-title {
+    font-size: 2em;
+  }
+  #vn-dialogue {
+    font-size: 1em;
+  }
+}
+
+/* --- Meta Terminal UI for Day 5 / Meta Scenes --- */
+.meta-terminal-ui {
+  background: rgba(18, 16, 12, 0.98) !important;
+  border: 2px solid rgba(180, 150, 90, 0.18);
+  border-radius: 18px;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.65);
+  font-family: 'EB Garamond', 'Georgia', serif;
+  color: #f5e6c8 !important;
+  padding: 48px 64px;
+  width: 90vw;
+  max-width: 960px;
+  min-height: 400px;
+  margin: 10vh auto; /* fixes awkward floating */
+  backdrop-filter: blur(8px) brightness(0.95);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  animation: flicker 4s infinite;
+  position: relative;
+}
+
+@media (max-width: 1100px) {
+  .meta-terminal-ui {
+    padding: 32px 24px;
+    min-height: 320px;
+  }
+}
+@media (max-width: 700px) {
+  .meta-terminal-ui {
+    padding: 18px 12px;
+    min-height: 240px;
+    gap: 16px;
+  }
+}
+
+/* Input field and label */
+.meta-input-label {
+  font-size: 1em;
+  font-family: 'EB Garamond', 'Georgia', serif;
+  color: #cfc0a8;
+  margin-bottom: 4px;
+}
+.meta-terminal-ui input[type="text"] {
+  background: rgba(44, 36, 28, 0.92);
+  color: #fffbe6;
+  border: 1.5px solid #b4965a;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 1.1em;
+  font-family: 'EB Garamond', 'Georgia', serif;
+  width: 100%;
+  box-sizing: border-box;
+  margin-right: 8px;
+}
+
+/* Button styles */
+.meta-terminal-ui .meta-choice-btn,
+.meta-terminal-ui button {
+  background: rgba(44, 36, 28, 0.92) !important;
+  border: 1.5px solid #b4965a !important;
+  border-radius: 8px !important;
+  color: #fffbe6 !important;
+  font-size: 1.1em !important;
+  margin-top: 16px !important;
+  padding: 10px 28px !important;
+  font-family: 'EB Garamond', 'Georgia', serif;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.28);
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.meta-terminal-ui button:hover {
+  background: #ffe066 !important;
+  color: #2a1a0a !important;
+  border: 1.5px solid #ffe066 !important;
+}
+
+/* Clown name */
+.meta-terminal-ui .clown {
+  font-family: 'Dancing Script', cursive;
+  color: #ffe066;
+  font-size: 1.15em;
+}
+
+/* Vignette effect */
+.meta-terminal-ui::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.7) 100%);
+}
+
+/* Flicker animation */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+  60% { opacity: 0.98; }
+  70% { opacity: 0.94; }
+}
+
+#meta-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  --spot-x: 50%;
+  --spot-y: 30%;
+  background:
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(10, 10, 20, 0.85), rgba(2, 0, 10, 0.98) 70%, #000 100%),
+    repeating-linear-gradient(45deg, rgba(30, 24, 12, 0.05), rgba(30, 24, 12, 0.05) 2px, transparent 2px, transparent 4px);
+  filter: brightness(0.95) saturate(1.1);
+  transition: background 0.3s;
+}
+
+#ending-overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.95) 70%, #000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: endingFadeIn 1.5s;
+}
+@keyframes endingFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.ending-content {
+  background: rgba(30, 24, 18, 0.98);
+  border: 2px solid #ffe066;
+  border-radius: 24px;
+  box-shadow: 0 0 64px 8px #000a;
+  padding: 48px 64px;
+  text-align: center;
+  max-width: 600px;
+}
+#ending-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.8em;
+  color: #ffe066;
+  margin-bottom: 24px;
+  text-shadow: 0 2px 24px #000b, 0 0 8px #ffe06688;
+  animation: endingTitleFade 2s;
+}
+@keyframes endingTitleFade {
+  from { letter-spacing: 0.5em; opacity: 0; }
+  to { letter-spacing: 0.1em; opacity: 1; }
+}
+#ending-text {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.35em;
+  color: #f5e6c8;
+  margin: 0 auto 36px auto;
+  line-height: 1.85;
+  text-shadow: 0 1px 8px #000a, 0 0 2px #ffe06644;
+  animation: endingTextFade 2.5s;
+  max-width: 90%;
+  text-align: center;
+  letter-spacing: 0.02em;
+  padding: 18px 0 0 0;
+  border-top: 1px solid #ffe06633;
+  border-bottom: 1px solid #ffe06622;
+  background: linear-gradient(90deg, rgba(255,224,102,0.03) 0%, rgba(30,24,18,0.98) 50%, rgba(255,224,102,0.03) 100%);
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 360px
+
+}
+
+@keyframes endingTextFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+#ending-restart {
+  background: #181512;
+  color: #ffe066;
+  border: 1.5px solid #ffe066;
+  border-radius: 10px;
+  font-size: 1.1em;
+  padding: 12px 36px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+#ending-restart:hover {
+  background: #ffe066;
+  color: #181512;
+}
+
+/* WebKit (Chrome, Edge, Opera) */
+#vn-dialogue::-webkit-scrollbar {
+  width: 12px;
+}
+
+#vn-dialogue::-webkit-scrollbar-track {
+  background: #1e1812;
+  border-radius: 8px;
+}
+
+#vn-dialogue::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #6b4c2a, #ffe066);
+  border-radius: 8px;
+  border: 2px solid #1e1812;
+}
+
+#vn-dialogue::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #ffe066, #6b4c2a);
+}
+
+@keyframes titleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+    letter-spacing: 0.4em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.1em;
+  }
+}
+
+
