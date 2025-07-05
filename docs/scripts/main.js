@@ -162,7 +162,7 @@ Ready to pretend again?<br>
     }
 
     // Otherwise, continue as normal
-    const res = await fetch('http://localhost:5000/meta-chat', {
+    const res = await fetch('https://the-rehearsal-room.onrender.com/meta-chat' , {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages })
