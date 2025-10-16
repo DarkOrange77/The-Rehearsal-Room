@@ -11,7 +11,7 @@ CORS(app)
 def detect_meta_tone(player_message):
     """Simple tone detection based on keywords."""
     msg = player_message.lower()
-    if any(kw in msg for kw in ["sorry", "didn't mean", "forgive", "regret", "didn’t know", "she didn’t deserve"]):
+    if any(kw in msg for kw in ["sorry", "didn't mean", "forgive", "regret", "didn't know", "she didn't deserve"]):
         return "remorse"
     if any(kw in msg for kw in ["lol", "not real", "bozo", "skill issue", "lmao", "funny"]):
         return "mockery"
@@ -35,13 +35,13 @@ def get_clown_prompt(meta_tone):
         " tight, haunting, and ambiguous style that evokes a sense of unease and introspection"
         "Here is a sample of your style:\n"
         "Clown: Ah. There you are. Just you and me now.\n"
-        "Clown: You’ve watched her suffer. You’ve chosen her path. So tell me, Director — were you ever going to let her rest?\n"
-        "Clown: Helping. Guiding. Directing. Isn’t that what they all say? And yet, you gave her so many endings, but not one of them let her wake up.\n"
+        "Clown: You've watched her suffer. You've chosen her path. So tell me, Director — were you ever going to let her rest?\n"
+        "Clown: Helping. Guiding. Directing. Isn't that what they all say? And yet, you gave her so many endings, but not one of them let her wake up.\n"
         "Clown: A rehearsal hall for ghosts. A wound in the script. A memory trying to forget itself — but you kept turning the pages.\n"
-        "Clown: Because she believes in the play. But you know it's a performance. You called ‘action.’ You wrote in red.\n"
+        "Clown: Because she believes in the play. But you know it's a performance. You called 'action.' You wrote in red.\n"
         "Clown: Real enough to break. Real enough to beg. But not real enough for you to stop, was she?\n"
-        "Clown: An understudy for something worse. A punchline you haven’t earned. I am what happens when you run a script for too long.\n"
-        "Clown: Don’t worry — she won’t remember this conversation. But you will. Curtain’s rising again. Ready to pretend?\n"
+        "Clown: An understudy for something worse. A punchline you haven't earned. I am what happens when you run a script for too long.\n"
+        "Clown: Don't worry — she won't remember this conversation. But you will. Curtain's rising again. Ready to pretend?\n"
     )
     if meta_tone == "remorse":
         return base + " The player is showing remorse. Be somber, but not forgiving."
@@ -54,8 +54,8 @@ def get_clown_prompt(meta_tone):
     return base
 
 def get_llm_response(messages, meta_tone):
-    api_key = os.getenv("TOGETHER_API_KEY")
-    url = "https://api.together.xyz/v1/chat/completions"
+    api_key = os.getenv("GROQ_API_KEY")
+    url = "https://api.groq.com/openai/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
@@ -68,7 +68,7 @@ def get_llm_response(messages, meta_tone):
     else:
         messages.insert(0, {"role": "system", "content": system_prompt})
     payload = {
-        "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free",
+        "model": "llama-3.3-70b-versatile",
         "messages": messages,
         "max_tokens": max_tokens,
         "temperature": 0.7
@@ -83,7 +83,7 @@ def get_llm_response(messages, meta_tone):
         else:
             return f"Unexpected API response: {result}"
     except Exception as e:
-        return f"Error contacting Together.ai API: {e}"
+        return f"Error contacting Groq API: {e}"
 
 @app.route('/', methods=['GET'])
 def home():
